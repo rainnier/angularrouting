@@ -1,6 +1,8 @@
+import { environment } from './../environments/environment';
+import { Observable } from 'rxjs';
 import { LazyModule } from './lazy/lazy.module';
 import { ComponentFourComponent } from './lazy/component-four/component-four.component';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,7 +12,7 @@ import { ComponentTwoComponent } from './component-two/component-two.component';
 import { ComponentThreeComponent } from './component-three/component-three.component';
 import { ComponentChildOneComponent } from './component-child-one/component-child-one.component';
 import { ComponentChildTwoComponent } from './component-child-two/component-child-two.component';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClient, HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -26,7 +28,17 @@ import { HttpClientModule } from '@angular/common/http'
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeAppFactory,
+      deps: [HttpClient]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+function initializeAppFactory(http:HttpClient) : () => Observable<any> {
+  return () => http.get(`${environment.url}/blogs`).pipe();
+}

@@ -13,3 +13,6 @@ BLOGMODULE               BOOKMODULE            PROFILE
 "": BlogListComponent
 
 RESOLVERS
+GUARDS
+
+APP INITIALIZER
