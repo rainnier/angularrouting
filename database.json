@@ -1,0 +1,22 @@
+{
+    "blogs": [
+        {
+            "title": "Wala akong maisip",
+            "description": "..."
+        },
+        {
+            "title": "Kahit ano",
+            "description": "anything under the sun"
+        }
+    ],
+    "books": [
+        {
+            "title": "Fishing in the Yemen",
+            "description": "swim swim"
+        },
+        {
+            "title": "Juan Ponce",
+            "description": "and on and on and on"
+        }
+    ]
+}
