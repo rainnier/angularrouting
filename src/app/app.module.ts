@@ -1,5 +1,5 @@
 import { environment } from './../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LazyModule } from './lazy/lazy.module';
 import { ComponentFourComponent } from './lazy/component-four/component-four.component';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
@@ -13,6 +13,7 @@ import { ComponentThreeComponent } from './component-three/component-three.compo
 import { ComponentChildOneComponent } from './component-child-one/component-child-one.component';
 import { ComponentChildTwoComponent } from './component-child-two/component-child-two.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http'
+
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http'
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAppFactory,
-      deps: [HttpClient]
+      deps: [HttpClient],
+      multi:true
     }
   ],
   bootstrap: [AppComponent]
@@ -40,5 +42,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http'
 export class AppModule { }
 
 function initializeAppFactory(http:HttpClient) : () => Observable<any> {
-  return () => http.get(`${environment.url}/blogs`).pipe();
+  return () => http.get(`${environment.url}/blogs`).pipe(
+    tap((data) => {})
+  )
 }
